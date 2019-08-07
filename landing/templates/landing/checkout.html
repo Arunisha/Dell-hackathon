@@ -1,0 +1,77 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}
+	Checkout
+{% endblock title %}
+
+
+{% block content %}
+<hr>
+<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+				  <div class="card-header">
+				    You are checking out the following products
+				  </div>
+				  <ul class="list-group list-group-flush">
+				  	{% if not products %}
+					  	<li class="list-group-item">
+					  		You have no items in the cart !
+					  	</li>
+				  	{% endif %}
+				  	{% for product in products %}
+					    <li class="list-group-item">
+					    	<div class="row">
+						    	<div class="col-sm-6 col-md-8">
+						    		<img src= "{{ product.image.url }}" style="width:50px;height: 50px;">
+							    	<a href="{% url 'specific' product.pk %}">{{ product.name }}</a>
+							    </div>
+						    </div>
+						    <div style="float: right;">
+						    <div class="row" style="font-size: 13px;">
+						    	<div class="col-sm-0">
+						    		Price Rs {{ product.price }}
+						    	</div>
+						    </div>
+						    <div class="row text-muted" style="font-size: 13px;margin-right: 10px;">
+						    	<div class="col-sm-0">
+						    		Shipping cost Rs {{ product.shipping_cost }}
+						    	</div>
+						    </div>
+						    </div>
+					    </li>
+					{% endfor %}
+				  </ul>
+				</div>
+			</div>
+		</div>
+		<div style="float: right;margin-right: 15px;">
+		<div class="row">
+			Total cost = {{ total }}
+		</div>
+		<div class="row">
+			Total shipping cost = {{ shipping }}
+		</div>
+		</div>
+		<br>
+		<br>
+		<hr>
+		<div class="row">
+			<form method="post">
+				{% csrf_token %}
+				{% bootstrap_form form %}
+				{% buttons %}
+					<button class="btn btn-primary">Buy</button>
+				{% endbuttons %}
+			</form>
+
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+{% endblock content %}

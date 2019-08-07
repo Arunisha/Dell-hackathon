@@ -1,0 +1,85 @@
+{% extends 'landing/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+
+{% block title %}
+	Cart
+{% endblock title %}
+
+
+{% block content %}
+<hr>
+<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+				  <div class="card-header">
+				    Your Cart
+				  </div>
+				  <ul class="list-group list-group-flush">
+				  	{% if not products %}
+					  	<li class="list-group-item">
+					  		You have no items in the cart !
+					  	</li>
+				  	{% endif %}
+				  	{% for product in products %}
+					    <li class="list-group-item">
+					    	<div class="row">
+						    	<div class="col-sm-6 col-md-8">
+							    	<a href="{% url 'specific' product.pk %}">{{ product.name }}</a>
+							    </div>
+						    	<div class="col-sm-6 pl-5 col-md-4">
+						    		<a href="{% url 'single_checkout' product.pk %}" class="btn btn-outline-success" data-pk="{{ product.pk }}">
+						    			Buy
+						    		</a>
+						    		<a href="#" class="btn btn-danger" data-pk="{{ product.pk }}">
+						    		Discard
+						    		</a>
+						    	</div>
+						    </div>
+						    <div class="row" style="font-size: 13px;">
+						    	<div class="col-sm-3">
+						    		Price Rs {{ product.price }}
+						    	</div>
+						    </div>
+						    <div class="row text-muted" style="font-size: 13px;">
+						    	<div class="col-sm-3">
+						    		Shipping cost Rs {{ product.shipping_cost }}
+						    	</div>
+						    </div>
+					    </li>
+					{% endfor %}
+				  </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if products %}
+	<a href="{% url 'checkout' %}" class="btn btn-primary" style="float: right;margin-right: 130px; margin-top: 10px;">CHECK OUT</a>
+	{% endif %}
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+{% endblock content %}
+
+{% block js %}
+{% if products %}
+	<script type="text/javascript">
+
+		$(document).on('mouseleave', leaveFromTop);
+
+function leaveFromTop(e){
+    if( e.clientY < 0 ) // less than 60px is close enough to the top
+      alert('You have left Amazing products in your cart!!!');
+  
+}
+</script>
+{% endif %}
+	<script type="text/javascript" src="{% static 'landing/cart.js' %}"></script>
+{% endblock js %}

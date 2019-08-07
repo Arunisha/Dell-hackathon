@@ -1,0 +1,68 @@
+{% extends 'landing/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+
+{% block title %}
+	{{ product.name }}
+{% endblock title %}
+
+
+{% block content %}
+<hr>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-sm-12 col-md-5">
+      <img src="{{ product.image.url }}" class="img-fluid">
+    </div>
+    <div class="col-sm-12 col-md-5">
+      <div class="display-4"><strong> {{ product.name }}</strong></div>
+      <div class="display-4">Rs {{ product.price }}</div>
+      <div class="display-5 muted"> Shipping Rs {{ product.shipping_cost }} </div>
+      <div class="lead">
+      	{{ product.description | safe }}
+      </div>
+      <button class="btn btn-primary-success mt-2" id="add_to_cart">Add to cart</button>
+    </div>
+  </div>
+
+  <br>
+  <h1><strong>REVIEWS</strong></h1>
+  <br>
+  <div class="row">
+      {% for comment in comments %}
+        <div class="container">
+          <div class="row">
+            <span><i class="fa fa-user" style="margin-right: 5px; font-size: 23px;"></i></span>{{ comment.user }}
+          </div>
+          <div class="row" style="margin-top: 2px;">
+            <div class="text-muted"><span><i class="fa fa-clock"></i> </span>{{ comment.time }}</div><br>
+          </div>
+          <div class="row" style="border-bottom: 3px solid;width: 30%;border-image:linear-gradient(black, transparent) 1;margin-top: 2px;">
+            <span><i class="fas fa-comment" style="margin-right: 5px;"></i></span>{{ comment.text }}
+            <span></span>
+          </div>
+          <br>
+        </div>
+      {% endfor %}
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form  form %}
+        {% buttons %}
+          <button class="btn btn-primary">Comment</button>
+          <br>
+          <br>
+          <br>
+          <br>
+        {% endbuttons %}
+      </form>
+  </div>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+  <script type="text/javascript" src={% static 'landing/specific.js' %}></script>
+{% endblock js %}

@@ -1,0 +1,103 @@
+{% load bootstrap4 %}
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>{% block title %} {% endblock title %}</title>
+	{% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+	{% block css %} {% endblock css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>	
+  <style>
+body {margin:0;}
+
+.icon-bar {
+  width: 100%;
+  background-color: #9CBDD5;
+  overflow: auto;
+}
+
+.icon-bar a {
+  float: left;
+  width: 20%;
+  text-align: center;
+  padding: 12px 0;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 36px;
+}
+
+.icon-bar a:hover {
+  background-color: #000;
+}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-white" >
+      <a class="navbar-brand" href="#"><img src="../../../media/logo/logo.png" style="height: 65px; width: 65px;"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      	<div>
+      		<input type="search" placeholder="Search" aria-label="Search" id="searchField" style="padding: 10px; font-size: 17px;border: 1px solid grey;float: left;width:30%;background: white;margin-top: 20px;margin-left: 350px;">
+	      <button id="searchSubmit" style="background: white;color: black;font-size: 25px;border: 1px solid white;cursor: pointer;margin-top: 20px;"><i class="fa fa-search"></i></input>
+      	</div>
+        <ul class="navbar-nav" style="float: right;">
+        	<div class="dropdown">
+  				<li class="nav-item active" data-toggle="dropdown" style="color: black;background: transparent;font-size: 23px;margin-top: 10px;margin-right: 15px;"><i class="fa fa-user"></i></li>
+  					<ul class="dropdown-menu">
+    					<li><a href="http://127.0.0.1:8000/auth/logout">LOGOUT</a></li>
+  					</ul>
+			</div>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}" style="color: black;margin-right: 15px;">HOME <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'cart' %}" style="color: black;"><i class="fa fa-cart-plus" style="font-size: 23px"></i></a>
+          </li>		
+        </ul> 
+      </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="container">
+		{% bootstrap_messages %}
+	</div>
+	{% block content %}
+	{% endblock content %}
+	{% block js %}
+	{% endblock js %}
+
+  <div style="clear: both;"></div>
+  <div class="icon-bar" style="position: fixed;bottom: 0;">
+  <a href="#"><i class="fab fa-facebook-f"></i></a> 
+  <a href="#"><i class="fab fa-twitter"></i></a> 
+  <a href="#"><i class="fab fa-instagram"></i></a>
+  <a href="#"><i class="fab fa-linkedin"></i></a> 
+  <a href="#"><i class="fab fa-google"></i></a> 
+</div>
+
+	<script type="text/javascript">
+		$('#searchSubmit').click(function(){
+			window.location.href = "/searching?text=" + $('#searchField').val();
+		});
+		
+	</script>
+</body>
+</html>
